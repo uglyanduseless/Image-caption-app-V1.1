@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block title %}Application Statistics{% endblock %}
+
+{% block content %}
+    <h2>Application Statistics</h2>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% elif stats %}
+        <div class="stats-container" style="text-align: left; max-width: 500px; margin: 0 auto;">
+            <div class="stat-item" style="margin-bottom: 15px; padding: 10px; background-color: #f5f5f5; border-radius: 5px;">
+                <strong>Total Uploaded Images:</strong> {{ stats.total_images }}
+            </div>
+            
+            <div class="stat-item" style="margin-bottom: 15px; padding: 10px; background-color: #e8f5e8; border-radius: 5px;">
+                <strong>Completed Annotations:</strong> {{ stats.completed_annotations }}
+                {% if stats.total_images > 0 %}
+                    ({{ "%.1f"|format((stats.completed_annotations / stats.total_images * 100)) }}%)
+                {% endif %}
+            </div>
+            
+            <div class="stat-item" style="margin-bottom: 15px; padding: 10px; background-color: #e8f0ff; border-radius: 5px;">
+                <strong>Generated Thumbnails:</strong> {{ stats.completed_thumbnails }}
+                {% if stats.total_images > 0 %}
+                    ({{ "%.1f"|format((stats.completed_thumbnails / stats.total_images * 100)) }}%)
+                {% endif %}
+            </div>
+            
+            {% if stats.failed_processing > 0 %}
+            <div class="stat-item" style="margin-bottom: 15px; padding: 10px; background-color: #ffe8e8; border-radius: 5px;">
+                <strong>Processing Failed:</strong> {{ stats.failed_processing }}
+            </div>
+            {% endif %}
+            
+            <div class="stat-item" style="margin-bottom: 15px; padding: 10px; background-color: #fff8e8; border-radius: 5px;">
+                <strong>Average File Size:</strong> 
+                {% if stats.avg_file_size %}
+                    {{ "%.2f"|format(stats.avg_file_size / 1024 / 1024) }} MB
+                {% else %}
+                    N/A
+                {% endif %}
+            </div>
+            
+            <div class="stat-item" style="margin-bottom: 15px; padding: 10px; background-color: #f0f8ff; border-radius: 5px;">
+                <strong>Total Storage Used:</strong> 
+                {% if stats.total_storage_used %}
+                    {{ "%.2f"|format(stats.total_storage_used / 1024 / 1024) }} MB
+                {% else %}
+                    0 MB
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        <p>No statistics data available</p>
+    {% endif %}
+
+    <br>
+    <p>
+        <a href="/">Upload Image</a> | 
+        <a href="/gallery">View Gallery</a>
+    </p>
+
+    <script>
+        // Auto refresh statistics data
+        setTimeout(function() {
+            location.reload();
+        }, 30000); // Refresh after 30 seconds
+    </script>
+{% endblock %}
