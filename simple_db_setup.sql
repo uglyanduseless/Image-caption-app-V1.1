@@ -2,7 +2,7 @@
 -- 可以使用MySQL Workbench、命令行或AWS Console
 
 -- 确保使用正确的数据库
-USE image_annotation_app;
+USE image_caption_db;
 
 -- 创建主要的images表
 CREATE TABLE IF NOT EXISTS images (
