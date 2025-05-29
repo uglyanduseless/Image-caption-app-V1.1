@@ -116,7 +116,7 @@ def upload_image():
             s3 = get_s3_client()
             s3.put_object(
                 Bucket=S3_BUCKET,
-                Key=unique_filename,
+                Key=f"uploads/{unique_filename}",
                 Body=file_data,
                 ContentType=file.content_type or f"image/{file_extension}",
                 Metadata={
