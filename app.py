@@ -87,8 +87,7 @@ def upload_image():
 
         original_filename = secure_filename(file.filename)
         file_extension = original_filename.rsplit(".", 1)[1].lower()
-        unique_filename = f"{uuid.uuid4().hex}.{file_extension}"
-        s3_key = f"uploads/{unique_filename}"  # ✅ 添加 uploads/ 前缀
+        s3_key = f"uploads/{original_filename}"  # 直接使用原始文件名作为S3键名
 
         image_info = get_image_info(file_data)
 
@@ -125,7 +124,7 @@ def upload_image():
             """
 
             cursor.execute(insert_query, (
-                unique_filename,
+                original_filename,
                 original_filename,
                 file_size,
                 file.content_type or f"image/{file_extension}",
@@ -152,7 +151,7 @@ def upload_image():
         return render_template("upload.html",
                                image_data=encoded_image,
                                file_url=file_url,
-                               filename=unique_filename,
+                               filename=original_filename,
                                processing_message="Image uploaded! Generating annotation and thumbnail in background...")
 
     return render_template("upload.html")
