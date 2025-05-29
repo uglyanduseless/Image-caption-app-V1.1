@@ -32,7 +32,7 @@ def get_s3_client():
 
 # Database Configuration - using your existing configuration
 DB_HOST = "assignment2-database.cfvojcdvmjtw.us-east-1.rds.amazonaws.com"
-DB_NAME = "assignment2-database"
+DB_NAME = "image_caption_db"
 DB_USER = "admin"
 DB_PASSWORD = "Qc20000215!"
 
