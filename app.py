@@ -208,7 +208,7 @@ def gallery():
                     "original_filename": row["original_filename"],
                     "url": image_url,
                     "thumbnail_url": thumbnail_url,
-                    "annotation": row["preview"] or "Generating annotation...",
+                    "caption": row["preview"] or "Generating annotation...",
                     "annotation_status": row["annotation_status"],
                     "uploaded_at": row["uploaded_at"],
                     "file_size": row["file_size"],
