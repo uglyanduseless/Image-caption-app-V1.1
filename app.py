@@ -176,7 +176,7 @@ def gallery():
         query = """
             SELECT 
                 filename, original_filename, annotation_status,
-                LEFT(annotation, 100) AS preview,
+                annotation,
                 uploaded_at, file_size, image_width, image_height
             FROM images 
             ORDER BY uploaded_at DESC
